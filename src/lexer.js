@@ -228,7 +228,7 @@ export class Lexer {
                     while (isAlphanumeric(this.peek())) identifier.push(this.advance())
                     identifier = identifier.join('')
                     // Check if it's a Keyword
-                    if (Object.keys(KEYWORDS).includes(identifier))
+                    if (Object.values(KEYWORDS).includes(identifier))
                         return this.tokens.push(
                             new Token(
                                 TOKENS.Keyword,

@@ -30,7 +30,19 @@ To download ScriptMaker, you must clone its Git repository. You can do this usin
 git clone https://github.com/CragglesG/ScriptMaker
 ```
 
-_More instructions coming soon_
+Once donwloaded, all you have to do is run the following command:
+
+```
+cd ScriptMaker && node generate.js
+```
+
+After you have generated your language, you can run the installation script to make it easy to run:
+
+```
+./generated/install.sh
+```
+
+That's it! You will now be able to use your new language by entering its name into the command line.
 
 
 

@@ -79,6 +79,23 @@ export const KEYWORDS = {
     if: '${answers[12]}',
     elif: '${answers[13]}',
     else: '${answers[14]}', // Conditionals
+}
+
+export const KEYWORDMAP = {
+    'prepare': '${answers[1]}',
+    'as': '${answers[2]}', // Variables
+    'type': '${answers[3]}',
+    'prep': '${answers[4]}',
+    'has': '${answers[5]}', // Structs
+    'func': '${answers[6]}',
+    'needs': '${answers[7]}',
+    'return': '${answers[8]}', // Functions
+    'loop': '${answers[9]}',
+    'through': '${answers[10]}',
+    'while': '${answers[11]}', // Loops
+    'if': '${answers[12]}',
+    'elif': '${answers[13]}',
+    'else': '${answers[14]}', // Conditionals
 }`, (err) => {
         if (err) throw err;
     })
@@ -101,6 +118,7 @@ const addAnswer = ans => {
         input.question(prompts[counter], addAnswer)
     } else {
         generate()
+        console.log("--------------")
         console.log(`Successfully generated ${answers[0]} configuration`)
         console.log(`\nRun ./generated/install.sh to install ${answers[0]}`)
         input.close()

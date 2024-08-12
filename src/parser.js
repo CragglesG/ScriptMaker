@@ -1,5 +1,5 @@
 import { WebScriptError } from './stdlib.js'
-import { TOKENS } from '../generated/tokens.js'
+import { KEYWORDMAP, TOKENS } from '../generated/tokens.js'
 import Ast from './ast.js'
 
 // Function to check if a token is an operator
@@ -119,7 +119,7 @@ export class Parser {
         let token = this.eat(this.peekType())
         switch (token.type) {
             case TOKENS.Keyword: {
-                if (token.value === 'prep') {
+                if (token.value === KEYWORDMAP['prep']) {
                     const id = this.eat(TOKENS.Identifier).value
                     
                     this.eat(TOKENS.LeftParen)
@@ -219,13 +219,13 @@ export class Parser {
 
         // Functions
         const funcStmt = () => {
-            this.eatKeyword('func')
+            this.eatKeyword(KEYWORDMAP['func'])
             const name = this.eat(TOKENS.Identifier).value
 
             // Parameters
             let params = []
-            if (this.peekKeyword('needs')) {
-                this.eatKeyword('needs')
+            if (this.peekKeyword(KEYWORDMAP['needs'])) {
+                this.eatKeyword(KEYWORDMAP['needs'])
                 this.eat(TOKENS.LeftParen)
                 params = this.identifierList()
                 this.eat(TOKENS.RightParen)
@@ -242,9 +242,9 @@ export class Parser {
 
         const forStmt = () => {
             // Counter (i)
-            this.eatKeyword('loop')
+            this.eatKeyword(KEYWORDMAP['loop'])
             const id = this.eat(TOKENS.Identifier).value
-            this.eatKeyword('through')
+            this.eatKeyword(KEYWORDMAP['through'])
 
             // Start and End
             this.eat(TOKENS.LeftParen)
@@ -266,7 +266,7 @@ export class Parser {
         }
 
         const whileStmt = () => {
-            this.eatKeyword('while')
+            this.eatKeyword(KEYWORDMAP['while'])
 
             // Condition
             this.eat(TOKENS.LeftParen)
@@ -287,7 +287,7 @@ export class Parser {
 
             // Condition
             let condition = new Ast.Literal(true)
-            if (keyword !== 'else') {
+            if (keyword !== KEYWORDMAP['else']) {
                 this.eat(TOKENS.LeftParen)
                 condition = this.expr()
                 this.eat(TOKENS.RightBrace)
@@ -301,7 +301,7 @@ export class Parser {
 
             // Elif/Else
             let otherwise = []
-            while (this.peekKeyword('elif') || this.peekKeyword('else'))
+            while (this.peekKeyword(KEYWORDMAP['elif']) || this.peekKeyword(KEYWORDMAP['else']))
                 otherwise.push(conditionalStmt(this.peek().value))
 
             return new Ast.Conditional(condition, body, otherwise)
@@ -309,24 +309,24 @@ export class Parser {
 
         // Variable assignments
         const assignStmt = () => {
-            this.eatKeyword('prepare')
+            this.eatKeyword(KEYWORDMAP['prepare'])
             const name = this.eat(TOKENS.Identifier).value
             if (this.peekType() === TOKENS.Period) {
                 this.eat(TOKENS.Period)
                 const property = this.eat(TOKENS.Identifier).value
-                this.eatKeyword('as')
+                this.eatKeyword(KEYWORDMAP['as'])
                 const value = this.expr()
                 return new Ast.Set(name, property, value)
             }
-            this.eatKeyword('as')
+            this.eatKeyword(KEYWORDMAP['as'])
             const value = this.expr()
             return new Ast.Var(name, value)
         }
 
         const structStmt = () => {
-            this.eatKeyword('type')
+            this.eatKeyword(KEYWORDMAP['type'])
             const name = this.eat(TOKENS.Identifier).value
-            this.eatKeyword('has')
+            this.eatKeyword(KEYWORDMAP['has'])
             this.eat(TOKENS.LeftBrace)
             const members = this.identifierList()
             this.eat(TOKENS.RightBrace)
@@ -338,19 +338,19 @@ export class Parser {
         switch(next.type) {
             case TOKENS.Keyword: {
                 switch (next.value) {
-                    case 'type':
+                    case KEYWORDMAP['type']:
                         return structStmt()
-                    case 'prepare':
+                    case KEYWORDMAP['prepare']:
                         return assignStmt()
-                    case 'if':
+                    case KEYWORDMAP['if']:
                         return conditionalStmt('if')
-                    case 'while':
+                    case KEYWORDMAP['while']:
                         return whileStmt()
-                    case 'loop':
+                    case KEYWORDMAP['loop']:
                         return forStmt()
-                    case 'finished':
+                    case KEYWORDMAP['finished']:
                         return returnStmt()
-                    case 'func':
+                    case KEYWORDMAP['func']:
                         return funcStmt()
                 }
             }
