@@ -85,8 +85,8 @@ export const KEYWORDMAP = {
     'prepare': '${answers[1]}',
     'as': '${answers[2]}', // Variables
     'type': '${answers[3]}',
-    'prep': '${answers[4]}',
-    'has': '${answers[5]}', // Structs
+    'prep': '${answers[5]}',
+    'has': '${answers[4]}', // Structs
     'func': '${answers[6]}',
     'needs': '${answers[7]}',
     'return': '${answers[8]}', // Functions
@@ -108,6 +108,35 @@ chmod +x ~/.${answers[0]}/generated/${answers[0]}
 echo '\n PATH=$PATH:$HOME/.${answers[0]}/generated' >>~/.bashrc \n`, (err) => {
         if (err) throw err;
     })
+    writeFile("./generated/test", `// AUTO-GENERATED ${answers[0]} TEST FILE
+${answers[1]} test ${answers[2]} "Testing... Testing"
+display(test)
+${answers[3]} T ${answers[4]} {t,e,s,t}
+${answers[5]} T(t:1,e:2,s:3,t:4)
+display(T)
+${answers[6]} testFunc ${answers[7]} (a,b,c) {
+    display(a,b,c)
+    return a
+}
+${answers[1]} funcResponse ${answers[2]} testFunc(1,2,3)
+${answers[9]} i ${answers[10]} (0,2) {
+    display(i)
+}
+var wlh as 1
+${answers[11]} (wlh==1) {
+    display("Better get out of this while loop")
+    var wlh as 2
+}
+${answers[12]} (1==2) {
+    // do nothing, it isn't
+} elif (1==1) {
+    display("YOU FOUND ME!")
+} else {
+    // once again, shouldn't come here
+}`, (err) => {
+        if (err) throw err
+    })
+
 }
 
 const addAnswer = ans => {

@@ -8,6 +8,8 @@ _Found a bug? Want a new feature? [Create an issue!](https://github.com/Craggles
 
 _Want to contribute? You can find good first issues [here](https://github.com/CragglesG/ScriptMaker/contribute)._
 
+**There is a known issue with conditionals and while loops. It is currently under investigation.**
+
 ## Usage Guide
 
 ScriptMaker currently customises WebScript's keywords to modify its syntax. This means that some modifications are not yet supported due to ScriptMaker not being able to edit the underlying lexer, parser, and interpreter. However, this functionality is planned for a future release.

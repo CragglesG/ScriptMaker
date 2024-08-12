@@ -290,7 +290,7 @@ export class Parser {
             if (keyword !== KEYWORDMAP['else']) {
                 this.eat(TOKENS.LeftParen)
                 condition = this.expr()
-                this.eat(TOKENS.RightBrace)
+                this.eat(TOKENS.RightParen)
             }
 
             // Body
@@ -348,7 +348,7 @@ export class Parser {
                         return whileStmt()
                     case KEYWORDMAP['loop']:
                         return forStmt()
-                    case KEYWORDMAP['finished']:
+                    case KEYWORDMAP['return']:
                         return returnStmt()
                     case KEYWORDMAP['func']:
                         return funcStmt()
