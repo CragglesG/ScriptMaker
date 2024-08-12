@@ -1,5 +1,5 @@
 import { WebScriptError } from './stdlib.js'
-import { TOKENS } from './lexer.js'
+import { TOKENS } from '../generated/tokens.js'
 import Ast from './ast.js'
 
 // Function to check if a token is an operator

@@ -83,55 +83,10 @@ export class Request {
     }
 }
 
-export class BlockchairAPI {
-    getPrice(args=[]) {
-        // Get price of crypto in USD
-        let convertTo = ""
-        let request
-        if (this.key) {
-            request = new Request(`https://api.blockchair.com/${args[0]}/stats?key=${this.key}`)
-        } else {
-            request = new Request(`https://api.blockchair.com/${args[0]}/stats`)
-        }
-        let data = request.get()
-        if (args.length > 1) convertTo = args[1]
-        if (convertTo == "bitcoin" || convertTo == "btc") {
-            return JSON.parse(data.responseText).data.market_price_btc
-        } else {
-            return JSON.parse(data.responseText).data.market_price_usd
-        }
-    }
-
-    getStats(crypto) {
-        // Get crypto stats
-        let request
-        if (this.key) {
-            request = new Request(`https://api.blockchair.com/${crypto}/stats?key=${this.key}`)
-        } else {
-            request = new Request(`https://api.blockchair.com/${crypto}/stats`)
-        }
-        data = request.get()
-        return JSON.parse(data.responseText).data
-    }
-
-    getOther(url) {
-        // Get JSON data
-        let request = new Request(url)
-        data = request.get()
-        return JSON.parse(data.responseText).data
-    }
-
-    setAPIKey(key) {
-        this.key = key
-    }
-}
-
 // Export the standard library
 export default {
     // request makes a new request object
     request: url => new Request(url),
-    // crypto makes a new BlockchairAPI object
-    crypto: new BlockchairAPI(),
     // display() prints to the console
     display: args => console.log(...args),
     // random() generates a random number within a min and max

@@ -27,10 +27,3 @@ prep S( x:1, y:2, z:3 )
 // Testing Request
 prepare g as request('https://www.google.ie')
 display(g.get().UNSENT)
-
-// Testing BlockchairAPI
-prepare btc as crypto
-display(btc.getPrice("bitcoin"))
-
-// btc.setAPIKey(API_Key_Here)
-display(btc.getPrice("ethereum", "btc"))
