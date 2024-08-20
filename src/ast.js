@@ -100,7 +100,7 @@ export class Instance {
 
 export class Call {
     constructor(caller, args) {
-        this.tye = 'Call'
+        this.type = 'Call'
         this.caller = caller
         this.args = args
     }

@@ -184,10 +184,10 @@ export class Lexer {
                     )
             }
             case '!': {
-                // Check if it's ! or !==
+                // Check if it's ! or !=
                 if (this.match('='))
                     return this.tokens.push(
-                    new Token(TOKENS.NotEquiv, '!==', '!==', this.line, this.column)
+                    new Token(TOKENS.NotEquiv, '!=', '!=', this.line, this.column)
                     )
                 return this.tokens.push(
                     new Token(TOKENS.Not, '!', '!', this.line, this.column)

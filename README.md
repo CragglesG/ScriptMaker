@@ -1,6 +1,6 @@
 # ScriptMaker
 
-ScriptMaker is a programming language generation tool based on [WebScript](https://github.com/CragglesG/WebScript)
+ScriptMaker is a programming language generation tool based on [WebScript](https://github.com/CragglesG/WebScript). It allows you to create your own programming language with ease, so you can comfortably code using a syntax that you know and love, without spending hours making a language yourself.
 
 _Hack Club Arcade Reviewers, see [here](#arcade-reviewers)_
 
@@ -46,6 +46,13 @@ After you have generated your language, you can run the installation script to m
 
 That's it! You will now be able to use your new language by entering its name into the command line.
 
+### Testing Your Language
+ScriptMaker automatically generates a test file for your programming language, to aid with debugging the generation and making sure that everything is as desired. You can run it with the command below, make sure to replace `LANG` with the name of your programming language:
+
+```
+LANG ~/.LANG/generated/test
+```
+
 
 
 
@@ -54,6 +61,6 @@ That's it! You will now be able to use your new language by entering its name in
 <br><br><br><br><br><br><br>
 
 #### Arcade Reviewers
-This project is based on [WebScript](https://github.com/CragglesG/WebScript). However, all commits under this repository (bar the intial commit) were made separate to WebScript. I have used no AI in the process of developing my project.
+This project is based on [WebScript](https://github.com/CragglesG/WebScript) (one of my other projects). However, all commits under this repository (bar the intial commit) were made separate to WebScript. I have used no AI in the process of developing my project.
 
 **Thanks for reviewing my project!**

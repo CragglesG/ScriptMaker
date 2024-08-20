@@ -68,8 +68,8 @@ export const KEYWORDS = {
     prepare: '${answers[1]}',
     as: '${answers[2]}', // Variables
     type: '${answers[3]}',
-    prep: '${answers[4]}',
-    has: '${answers[5]}', // Structs
+    prep: '${answers[5]}',
+    has: '${answers[4]}', // Structs
     func: '${answers[6]}',
     needs: '${answers[7]}',
     return: '${answers[8]}', // Functions
@@ -122,17 +122,17 @@ ${answers[1]} funcResponse ${answers[2]} testFunc(1,2,3)
 ${answers[9]} i ${answers[10]} (0,2) {
     display(i)
 }
-var wlh as 1
+${answers[1]} wlh as 1
 ${answers[11]} (wlh==1) {
     display("Better get out of this while loop")
-    var wlh as 2
+    ${answers[1]} wlh as 2
 }
 ${answers[12]} (1==2) {
-    // do nothing, it isn't
-} elif (1==1) {
+    display("PROBLEM - IF REACHED")
+} ${answers[13]} (1==1) {
     display("YOU FOUND ME!")
-} else {
-    // once again, shouldn't come here
+} ${answers[14]} {
+    display("PROBLEM - ELSE REACHED")
 }`, (err) => {
         if (err) throw err
     })
