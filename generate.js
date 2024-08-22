@@ -1,36 +1,29 @@
 import { execFile } from 'node:child_process'
-import { writeFile } from 'node:fs'
+import fs from 'node:fs'
 import readline from 'node:readline'
+
+const readFile = location =>
+    new Promise((resolve, reject) =>
+        fs.readFile(location, 'utf-8', (err, data) => {
+            if (err) return reject(err)
+            resolve(data.toString().split(`\n`))
+        })
+    )
+
+const writeFile = (location, data) =>
+    new Promise((resolve, reject) =>
+        fs.writeFile(location, data, err => {
+        if (err) return reject(err)
+        resolve()
+        })
+    )
 
 const input = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 })
 
-console.log("ScriptMaker (c) Craig Giles 2024")
-console.log("-------------")
-console.log("Welcome to ScriptMaker!")
-console.log("You will now be asked a series of questions necessary to generate your programming language.")
-
-let answers = []
-let prompts = ["Name of langage (no spaces): ", 
-"Variable declaration keyword (var, const, etc.): ",
-"Variable assignment keyword (=, as, etc.): ",
-"Struct declaration keyword (struct, etc.): ",
-"Struct values keyword (has, etc.): ",
-"Instance creation keyword (new, etc.): ",
-"Function declaration keyword (func, function, etc.): ",
-"Function parameters keyword (needs, requires, etc.): ",
-"Return keyword: ",
-"For loop keyword (for, loop, etc.): ",
-"For loop range keyword (through, range, etc.): ",
-"While loop keyword (while, etc.): ",
-"If statement keyword (if, etc.): ",
-"Else if statement keyword (elif, etc.): ",
-"Else statement keyword (else, etc.): "]
-let counter = 0
-
-function generate() {
+function generate(answers) {
     writeFile("./generated/tokens.js", `// List of Tokens
 export const TOKENS = {
     LeftParen: 'LeftParen',
@@ -96,18 +89,14 @@ export const KEYWORDMAP = {
     'if': '${answers[12]}',
     'elif': '${answers[13]}',
     'else': '${answers[14]}', // Conditionals
-}`, (err) => {
-        if (err) throw err;
-    })
-    writeFile(`./generated/${answers[0]}`, `node ~/.${answers[0]}/src/webscript.js $1 $2`, (err) => {
-        if (err) throw err;
-    })
+}`)
+    writeFile(`./generated/${answers[0]}`, `node ~/.${answers[0]}/src/webscript.js $1 $2`)
+    
     writeFile(`./generated/install.sh`, `mkdir ~/.${answers[0]}
 cp -r ./* ~/.${answers[0]}
 chmod +x ~/.${answers[0]}/generated/${answers[0]}
-echo '\n PATH=$PATH:$HOME/.${answers[0]}/generated' >>~/.bashrc \n`, (err) => {
-        if (err) throw err;
-    })
+echo '\n PATH=$PATH:$HOME/.${answers[0]}/generated' >>~/.bashrc \n`)
+    
     writeFile("./generated/test", `// AUTO-GENERATED ${answers[0]} TEST FILE
 ${answers[1]} test ${answers[2]} "Testing... Testing"
 display(test)
@@ -133,11 +122,11 @@ ${answers[12]} (1==2) {
     display("YOU FOUND ME!")
 } ${answers[14]} {
     display("PROBLEM - ELSE REACHED")
-}`, (err) => {
-        if (err) throw err
-    })
+}`)
 
 }
+
+let answers = []
 
 const addAnswer = ans => {
     answers.push(ans)
@@ -146,7 +135,7 @@ const addAnswer = ans => {
     if (!(counter > prompts.length-1)) {
         input.question(prompts[counter], addAnswer)
     } else {
-        generate()
+        generate(answers)
         console.log("--------------")
         console.log(`Successfully generated ${answers[0]} configuration`)
         console.log(`\nRun ./generated/install.sh to install ${answers[0]}`)
@@ -154,5 +143,44 @@ const addAnswer = ans => {
     }
 }
 
-input.question(prompts[counter], addAnswer)
+const interactiveMode = () => {
+    console.log("ScriptMaker (c) Craig Giles 2024")
+    console.log("-------------")
+    console.log("Welcome to ScriptMaker!")
+    console.log("You will now be asked a series of questions necessary to generate your programming language.")
 
+    let prompts = [
+        "Name of langage (no spaces): ", 
+        "Variable declaration keyword (var, const, etc.): ",
+        "Variable assignment keyword (=, as, etc.): ",
+        "Struct declaration keyword (struct, etc.): ",
+        "Struct values keyword (has, etc.): ",
+        "Instance creation keyword (new, etc.): ",
+        "Function declaration keyword (func, function, etc.): ",
+        "Function parameters keyword (needs, requires, etc.): ",
+        "Return keyword: ",
+        "For loop keyword (for, loop, etc.): ",
+        "For loop range keyword (through, range, etc.): ",
+        "While loop keyword (while, etc.): ",
+        "If statement keyword (if, etc.): ",
+        "Else if statement keyword (elif, etc.): ",
+        "Else statement keyword (else, etc.): "
+    ]
+    let counter = 0
+    input.question(prompts[counter], addAnswer)
+}
+
+
+const fileMode = (path) => {
+    let file = readFile(path)
+    for (i=0; i<file.length; i++) {
+        answers.push(file[i])
+    }
+    generate(answers)
+}
+
+if (process.argv.length > 2) {
+    fileMode(process.argv[2])
+} else {
+    interactiveMode()
+}

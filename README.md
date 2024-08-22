@@ -10,6 +10,15 @@ _Want to contribute? You can find good first issues [here](https://github.com/Cr
 
 **There is a known issue with conditionals and while loops. It is currently under investigation.**
 
+## Table of Contents
+- [Usage Guide](#usage-guide)
+    - [Prerequisites](#prerequisites)
+    - [Cloning ScriptMaker](#cloning-scriptmaker)
+    - [Running ScriptMaker](#running-scriptmaker)
+        - [Interactive Mode](#interactive-mode)
+        - [File Mode](#file-mode)
+    - [Testing Your Language](#testing-your-language)
+
 ## Usage Guide
 
 ScriptMaker currently customises WebScript's keywords to modify its syntax. This means that some modifications are not yet supported due to ScriptMaker not being able to edit the underlying lexer, parser, and interpreter. However, this functionality is planned for a future release.
@@ -32,29 +41,88 @@ To download ScriptMaker, you must clone its Git repository. You can do this usin
 git clone https://github.com/CragglesG/ScriptMaker
 ```
 
-Once donwloaded, all you have to do is run the following command:
+### Running ScriptMaker
+
+ScriptMaker supports two different modes: interactive mode and file mode. Interactive mode allows you to input your language syntax interactively, right in the command line. File mode reads the syntax from the specified file, which can be useful when you're not using an interactive shell.
+
+#### Interactive Mode
+
+Once you've downloaded ScriptMaker, all you have to do is run the following command:
 
 ```
 cd ScriptMaker && node generate.js
 ```
 
-After you have generated your language, you can run the installation script to make it easy to run:
+After you have generated your language, you can use the installation script to make it easy to run:
 
 ```
-./generated/install.sh
+chmod +x ./generated/install.sh && ./generated/install.sh
 ```
 
-That's it! You will now be able to use your new language by entering its name into the command line.
+That's it! You will now be able to use your new language by entering its name into the command line. You can safely delete the ScriptMaker folder.
+
+#### File Mode
+
+Before you run ScriptMaker in File Mode, you'll need to create a syntax file. Below is an example of a syntax file for WebScript:
+
+```
+prepare
+as
+type
+prep
+has
+func
+needs
+return
+loop
+through
+while
+if
+elif
+else
+```
+
+Here's an explanation of the above file:
+
+```
+prepare -> This is used to declare a variable. Equivalent to const/let in JS.
+as -> This is used to assign a variable. Equivalent to = in JS.
+type -> This is used to create an object.
+prep -> This is used to create an instance of an object.
+has -> This is used to define the values of an object.
+func -> This is used to create a function.
+needs -> This is used to assign parameters to a function.
+return -> Return from a function
+loop -> This is used to create a for loop.
+through -> This is used to specify the range of a for loop/assign a counter variable. Example: loop i through (0,5)
+while -> This is used to create a while true loop.
+if -> If statement
+elif -> Else/if statement
+else -> Else statement
+```
+
+Once you've made a syntax file, you'll need to pass in the full path to ScriptMaker (replace `PATH` with the path to your file):
+
+```
+cd ScriptMaker && node generate.js PATH
+```
+
+_Tip: if all goes well, there should be no output from this command_
+
+Now that ScriptMaker has generated your language, you can use the installation script to make it easy to run:
+
+```
+chmod +x ./generated/install.sh && ./generated/install.sh
+```
+
+That's it! You will now be able to use your new language by entering its name into the command line. You can safely delete the ScriptMaker folder.
 
 ### Testing Your Language
-ScriptMaker automatically generates a test file for your programming language, to aid with debugging the generation and making sure that everything is as desired. You can run it with the command below, make sure to replace `LANG` with the name of your programming language:
+ScriptMaker automatically generates a test file for your programming language, to aid with debugging the generation and making sure that everything is as desired. You can run it with the command below, make sure to replace `NAME` with the name of your programming language:
 
 ```
-LANG ~/.LANG/generated/test
+NAME ~/.NAME/generated/test
 ```
-
-
-
 
 
 
