@@ -2,13 +2,13 @@
 
 ScriptMaker is a programming language generation tool based on [WebScript](https://github.com/CragglesG/WebScript). It allows you to create your own programming language with ease, so you can comfortably code using a syntax that you know and love, without spending hours making a language yourself.
 
-_Hack Club Arcade Reviewers, see [here](#arcade-reviewers)_
+_Hack Club Arcade Reviewers, see [here](#arcade-reviewers) (not for showcase, only scrapbook)_
 
 _Found a bug? Want a new feature? [Create an issue!](https://github.com/CragglesG/ScriptMaker/issues/new) (Please check for an existing one first to avoid duplicates!)_
 
 _Want to contribute? You can find good first issues [here](https://github.com/CragglesG/ScriptMaker/contribute)._
 
-**There is a known issue with conditionals and while loops. It is currently under investigation.**
+![ScriptMaker Demo Image](https://cloud-oqart3tgc-hack-club-bot.vercel.app/0terminal_scriptmaker.png)
 
 ## Table of Contents
 - [Usage Guide](#usage-guide)
