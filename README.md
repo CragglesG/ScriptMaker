@@ -69,7 +69,7 @@ Once you've made a syntax file, you'll need to pass in the path to ScriptMaker (
 npm run generate /home/CragglesG/ScriptMaker/FILE
 ```
 
-_Tip: if all goes well, there should be no output from this command_
+_Tip: if all goes well, there should be no output from this command. You may need to ctrl+c if it doesn't exit within ten or so seconds_
 
 Now that ScriptMaker has generated your language, you can use the installation script to make it easy to run:
 
