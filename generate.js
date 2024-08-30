@@ -105,7 +105,7 @@ ${answers[5]} T(t:1,e:2,s:3,t:4)
 display(T)
 ${answers[6]} testFunc ${answers[7]} (a,b,c) {
     display(a,b,c)
-    return a
+    ${answers[8]} a
 }
 ${answers[1]} funcResponse ${answers[2]} testFunc(1,2,3)
 ${answers[9]} i ${answers[10]} (0,2) {
@@ -174,7 +174,7 @@ const interactiveMode = () => {
 
 const fileMode = (path) => {
     let file = readFile(path)
-    for (i=0; i<file.length; i++) {
+    for (let i=0; i<file.length; i++) {
         answers.push(file[i])
     }
     generate(answers)

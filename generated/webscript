@@ -1,1 +1,0 @@
-node ~/.webscript/src/webscript.js $1 $2
