@@ -1,0 +1,10 @@
+{
+    "launch": {
+        "configurations": [
+            {
+                "preLaunchTask": "run"
+            }
+        ],
+        "compounds": []
+    }
+}

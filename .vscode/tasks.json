@@ -1,0 +1,9 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "run",
+        "command": "npm run generate", // Could be any other shell command
+        "args": [],
+        "type": "shell"
+    }]
+}
